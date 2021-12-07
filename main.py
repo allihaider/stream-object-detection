@@ -1,18 +1,10 @@
-import cv2
 from collections import deque
+from stream_listener import StreamListener
+
+STREAM_URL = "http://localhost:8080"
+REATTEMPT_INTERVAL = 2
 
 frame_queue = deque(maxlen=30)
 
-stream_address = "http://localhost:8080"
-cap = cv2.VideoCapture(stream_address)
-
-if (cap.isOpened() == False):
-        print('Could not open camera')
-
-while(cap.isOpened()):
-        ret, frame = cap.read()
-        if ret:
-            print("Frame read")
-        else:
-            print("Frame not read")
-
+stream_listener = StreamListener(STREAM_URL, REATTEMPT_INTERVAL)
+stream_listener.read_stream(frame_queue)
