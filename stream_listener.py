@@ -1,4 +1,5 @@
 import time
+import threading
 import cv2
 
 class StreamListener:
@@ -12,13 +13,14 @@ class StreamListener:
 
 		while True:
 			if (cap.isOpened() == False):
-				print('Could not open stream')
+				print(f'{threading.get_ident()}: Could not open stream')
 
 			while(cap.isOpened()):
 				ret, frame = cap.read()
 				if ret:
 					queue.append(frame)
+					print(f"{threading.get_ident()}:Frame received")
 				else:
-					print("No data received")
+					print(f"{threading.get_ident()}:No data received")
 
 			time.sleep(self.reattempt_interval)
