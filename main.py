@@ -1,9 +1,8 @@
 import os
 import time
+import threading
 from collections import deque
 from stream_listener import StreamListener
-# from multiprocessing import Process
-import threading
 
 STREAM_URL = "http://localhost:8080"
 REATTEMPT_INTERVAL = 2
