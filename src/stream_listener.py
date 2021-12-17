@@ -2,7 +2,6 @@ import time
 import threading
 import cv2
 
-
 class StreamListener:
 	def __init__(self, address, reattempt_interval):
 		self.address = address
