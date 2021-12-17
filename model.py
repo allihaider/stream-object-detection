@@ -20,15 +20,15 @@ class Model:
         inputs = []
 
         for image in images:
-            image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
-            image = transform(image).to(device)
+            image = self.transform(image).to(self.device)
             image = image.unsqueeze(0)
             inputs.append(image)
 
         inputs = torch.cat(inputs)
-        outputs = model(inputs)
+        self.model.eval().to(self.device)
+        outputs = self.model(inputs)
 
-        pred_classes = [coco_names[i] for i in outputs[0]['labels'].cpu().numpy()]
+        pred_classes = [self.class_names[i] for i in outputs[0]['labels'].cpu().numpy()]
         pred_scores = outputs[0]['scores'].detach().cpu().numpy()
         pred_bboxes = outputs[0]['boxes'].detach().cpu().numpy()
         pred_labels = outputs[0]['labels'].cpu().numpy()
