@@ -1,7 +1,5 @@
-import cv2
-import torchvision
 import torch
-import torchvision.transforms as transforms
+import torchvision
 import numpy as np
 
 
@@ -12,7 +10,7 @@ class Model:
         self.class_names = class_names
         self.detection_threshold = detection_threshold
         self.device = device
-        self.transform = transforms.Compose([transforms.ToTensor())
+        self.transform = torchvision.transforms.Compose([torchvision.transforms.ToTensor()])
         self.model = torchvision.models.detection.fasterrcnn_mobilenet_v3_large_fpn(pretrained=True)
         
         return
